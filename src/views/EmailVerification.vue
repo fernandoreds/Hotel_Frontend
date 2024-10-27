@@ -1,18 +1,22 @@
 <template>
-  <div class="container">
-    <h1>Verificación de Email</h1>
-    <form @submit.prevent="verifyEmail">
-      <input type="email" v-model="email" placeholder="Email" required />
-      <button type="submit">Verificar Email</button>
-      <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
-      <p v-if="successMessage" class="success">{{ successMessage }}</p>
-    </form>
-
-    <!-- Botones de navegación -->
-    <div class="btn-container">
-      <router-link to="/login" class="btn">Ir a Login</router-link>
-      <router-link to="/" class="btn">Registro de Usuario</router-link>
+  <div class="main-container">
+    <div class="login-container">
+      <h1>Verificación de Email</h1>
+      <p>ingresa tu correo electrónico para recibir un enlace de verificación.</p>
+      <input
+        type="email"
+        v-model="email"
+        placeholder="Email"
+        required
+      />
+      <button @click="requestVerification">Enviar enlace de verificación</button>
+      <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
+      <div class="btn-container">
+        <router-link to="/login" class="btn">Iniciar Sesión</router-link>
+        <router-link to="/" class="btn">Registro de Usuario</router-link>
+      </div>
     </div>
+    <div class="right-side"></div> 
   </div>
 </template>
 
@@ -21,73 +25,78 @@ export default {
   data() {
     return {
       email: '',
-      errorMessage: '',
-      successMessage: ''
+      errorMessage: ''
     };
   },
   methods: {
-    verifyEmail() {
+    requestVerification() {
       this.errorMessage = '';
-      this.successMessage = '';
 
-      // Simulación de verificación de email
-      if (this.email === 'existente@example.com') {
-        this.errorMessage = 'El email no está registrado.';
+     
+      if (!this.email) {
+        this.errorMessage = 'Por favor, ingresa tu correo electrónico.';
         return;
       }
 
-      this.successMessage = 'Email verificado! Ahora puedes establecer tu contraseña.';
-      this.email = '';
+      
+      alert(`Se ha enviado un nuevo enlace de verificación a ${this.email}.`);
+      this.email = ''; 
     }
   }
 };
 </script>
 
 <style scoped>
-.container {
-  width: 90%;
-  max-width: 600px;
+.main-container {
+  display: flex;
+  height: 100vh;
+  background: linear-gradient(to right, #2b2b2b, #575555);
+}
+
+.login-container {
+  width: 400px;
+  padding: 40px;
+  background: rgb(54, 54, 54);
+  border-radius: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   margin: auto;
-  padding: 20px;
-  background: white;
-  border-radius: 5px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
 }
 
 h1 {
   text-align: center;
   margin-bottom: 20px;
+  color: #f3f3f3;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+p {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 input {
-  width: 100%; /* Asegura que los inputs ocupen todo el ancho */
-  max-width: 400px; /* Establece un ancho máximo */
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-  font-size: 16px; /* Tamaño de fuente más legible */
+  width: 90%;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid #059e52;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
 button {
-  padding: 10px;
+  padding: 15px;
   background-color: #0c8b70;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
-  width: 100%; /* Hacer que el botón ocupe todo el ancho */
-  max-width: 400px; /* Establece un ancho máximo */
+  font-size: 16px;
+  margin-top: 20px;
 }
 
 button:hover {
-  background-color: #047747;
+  background-color: #15ac54;
 }
 
 .error {
@@ -95,21 +104,15 @@ button:hover {
   text-align: center;
 }
 
-.success {
-  color: green;
-  text-align: center;
-}
-
-/* Estilo para botones de navegación */
 .btn-container {
   display: flex;
   justify-content: center;
-  margin-top: 20px; /* Añade un poco de margen superior */
+  margin-top: 20px;
 }
 
 .btn {
-  padding: 10px 20px; /* Botones más grandes */
-  margin: 0 10px; /* Espaciado entre botones */
+  padding: 10px 20px;
+  margin: 0 10px;
   background-color: #0aa78c;
   color: white;
   border: none;
@@ -118,6 +121,7 @@ button:hover {
 }
 
 .btn:hover {
-  background-color: #036d4d;
+  background-color: #026d37;
 }
+
 </style>

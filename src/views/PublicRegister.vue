@@ -1,21 +1,21 @@
 <template>
-  <div class="container">
-    <h1>Registro de Usuario</h1>
-    <form @submit.prevent="register">
-      <input type="text" v-model="nombre" placeholder="Nombre" required />
-      <input type="email" v-model="email" placeholder="Email" required />
-      <input type="password" v-model="password" placeholder="Contraseña" required />
-      <input type="password" v-model="confirmPassword" placeholder="Confirmar Contraseña" required />
+  <div class="main-container">
+    <div class="login-container">
+      <h1>Registro de Usuario</h1>
+      <form @submit.prevent="register">
+        <input type="text" v-model="name" placeholder="Nombre" required />
+        <input type="email" v-model="email" placeholder="Email" required />
+        <input type="password" v-model="password" placeholder="Contraseña" required />
+        <button type="submit">Registrarse</button>
+        <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+      </form>
 
-      <button type="submit">Registrarse</button>
-      <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
-    </form>
-
-    <!-- Botones de navegación -->
-    <div class="btn-container">
-      <router-link to="/login" class="btn">Ir a Login</router-link>
-      <router-link to="/verify-email" class="btn">Verificar Email</router-link>
+      <div class="btn-container">
+        <router-link to="/login" class="btn">Iniciar Sesión</router-link>
+        <router-link to="/verify-email" class="btn">Verificar Email</router-link>
+      </div>
     </div>
+    <div class="right-side"></div> <!-- Sección derecha vacía -->
   </div>
 </template>
 
@@ -23,10 +23,9 @@
 export default {
   data() {
     return {
-      nombre: '',
+      name: '',
       email: '',
       password: '',
-      confirmPassword: '',
       errorMessage: ''
     };
   },
@@ -34,69 +33,69 @@ export default {
     register() {
       this.errorMessage = '';
 
-      // Simulación de llamada a la API
-      if (this.email === 'existente@example.com') {
-        this.errorMessage = 'El email ya está registrado.';
+      // Simulación de registro
+      if (!this.name || !this.email || !this.password) {
+        this.errorMessage = 'Por favor, completa todos los campos.';
         return;
       }
 
-      if (this.password !== this.confirmPassword) {
-        this.errorMessage = "Las contraseñas no coinciden.";
-        return;
-      }
-
-      alert('Registro exitoso! Verifica tu email para activar tu cuenta.');
-      // Resetear el formulario
-      this.nombre = '';
+      alert('Registro exitoso!');
+      this.name = '';
       this.email = '';
       this.password = '';
-      this.confirmPassword = '';
     }
   }
 };
 </script>
 
 <style scoped>
-.container {
-  width: 90%;
-  max-width: 600px;
+/* Similar a los estilos del componente de inicio de sesión */
+.main-container {
+  display: flex;
+  height: 100vh;
+  background: linear-gradient(to right, #2b2b2b, #3a3939);
+}
+
+.login-container {
+  width: 400px;
+  padding: 40px;
+  background: rgb(56, 53, 53);
+  border-radius: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   margin: auto;
-  padding: 20px;
-  background: white;
-  border-radius: 5px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
 }
 
 h1 {
   text-align: center;
   margin-bottom: 20px;
+  color: #eefcf9;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centra los elementos dentro del formulario */
+  align-items: stretch;
 }
 
 input {
-  width: 100%; /* Asegura que los inputs ocupen todo el ancho */
-  max-width: 400px; /* Establece un ancho máximo */
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-  font-size: 16px; /* Tamaño de fuente más legible */
+  width: 90%;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid #059e52;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
 button {
-  padding: 10px;
+  padding: 15px;
   background-color: #0c8b70;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
-  width: 100%; /* Hacer que el botón ocupe todo el ancho */
-  max-width: 400px; /* Establece un ancho máximo */
+  font-size: 16px;
 }
 
 button:hover {
@@ -108,24 +107,24 @@ button:hover {
   text-align: center;
 }
 
-/* Estilo para botones de navegación */
 .btn-container {
   display: flex;
   justify-content: center;
-  margin-top: 20px; /* Añade un poco de margen superior */
+  margin-top: 20px;
 }
 
 .btn {
-  padding: 10px 20px; /* Botones más grandes */
-  margin: 0 10px; /* Espaciado entre botones */
+  padding: 10px 20px;
+  margin: 0 10px;
   background-color: #0aa78c;
-  color: white;
+  color: rgb(238, 235, 235);
   border: none;
   border-radius: 5px;
   text-decoration: none;
 }
 
-.btn:hover {  
-  background-color: #077048;
+.btn:hover {
+  background-color: #026d37;
 }
+
 </style>
